@@ -1,0 +1,51 @@
+<%= form_with(model: motor) do |form| %>
+  <% if motor.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(motor.errors.count, "error") %> prohibited this motor from being saved:</h2>
+
+      <ul>
+        <% motor.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if action_name == "edit" %>
+    <% if (motor.photo != '') || motor.photo.nil? %>
+      <%= image_tag motor.photo, class: 'rounded mx-auto d-block w-25' %>
+    <% else %>
+      <%= image_tag 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB4tz_gilgETvc2A7tVnVD_Z72z1_DrqwY00IFji_Q55BG4cTjq0zlIXanmPREaaU0GcY&usqp=CAU', class: 'rounded mx-auto d-block w-25' %>
+    <% end %>
+  <% end %>
+
+  <div class="input-group py-2">
+    <%= form.label :name, "Nombre", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%= form.text_field :name, placeholder: "Nombre", class: "form-control" %>
+  </div>
+
+  <div class="input-group py-2">
+    <%= form.label :type_motor, "Tipo de Motor", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%# form.text_field :type_motor, placeholder: "Tipo de Motor", class: "form-control" %>
+    <%= form.select :type_motor, Motor.type_motors.keys, {}, class: "form-select" %>
+  </div>
+
+  <div class="input-group py-2">
+    <%= form.label :description, "Descripción", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%= form.text_area :description, placeholder: "Descripción", class: "form-control" %>
+  </div>
+
+  <div class="input-group py-2">
+    <%= form.label :photo, "Foto URL", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%= form.text_field :photo, placeholder: "Foto URL", class: "form-control" %>
+  </div>
+  
+  <div class="py-2">
+    <% if action_name == "new" %>
+      <%= form.submit "Guardar", class: "btn btn-success rounded-pill fw-semibold text-white" %>
+    <% else %>
+      <%= form.submit "Actualizar", class: "btn btn-success rounded-pill fw-semibold text-white" %>
+    <% end %>
+  </div>
+<% end %>
+

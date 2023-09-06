@@ -1,0 +1,62 @@
+<%= form_with(model: mantenimiento) do |form| %>
+  <% if mantenimiento.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(mantenimiento.errors.count, "error") %> prohibited this mantenimiento from being saved:</h2>
+
+      <ul>
+        <% mantenimiento.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :type_motor, style: "display: block" %>
+    <%= form.number_field :type_motor %>
+  </div>
+
+  <div>
+    <%= form.label :type_mantenimiento, style: "display: block" %>
+    <%= form.number_field :type_mantenimiento %>
+  </div>
+
+  <div>
+    <%= form.label :motor_name, style: "display: block" %>
+    <%= form.text_field :motor_name %>
+  </div>
+
+  <div>
+    <%= form.label :city, style: "display: block" %>
+    <%= form.number_field :city %>
+  </div>
+
+  <div>
+    <%= form.label :material, style: "display: block" %>
+    <%= form.number_field :material %>
+  </div>
+
+  <div>
+    <%= form.label :date_mantenimiento, style: "display: block" %>
+    <%= form.datetime_field :date_mantenimiento %>
+  </div>
+
+  <div>
+    <%= form.label :user_email, style: "display: block" %>
+    <%= form.text_field :user_email %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :motor_id, style: "display: block" %>
+    <%= form.text_field :motor_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

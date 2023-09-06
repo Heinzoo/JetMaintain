@@ -1,0 +1,46 @@
+<div id="<%= dom_id motor %>" class="col-4 py-2">
+  <div class="card text-center border-success">
+    <% if (motor.photo != '') || motor.photo.nil? %>
+      <%= image_tag motor.photo, class: 'card-img-top' %>
+    <% else %>
+      <%= image_tag 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB4tz_gilgETvc2A7tVnVD_Z72z1_DrqwY00IFji_Q55BG4cTjq0zlIXanmPREaaU0GcY&usqp=CAU', class: 'card-img-top' %>
+    <% end %>
+    <div class="card-header">
+      <h5 class="card-title fw-bold">
+        <%= motor.name %>
+      </h5>
+      <p class="card-subtitle">
+        <%= motor.type_motor %>
+      </p>
+    </div>
+    <div class="card-body">
+      <p class="card-text fst-italic">
+        <%= motor.description %>
+      </p>
+    </div>
+    <div class="card-footer">
+      <% if action_name == 'index' %>
+        <%= link_to motor do %>
+          <i class="bi bi-eye-fill text-primary fs-5"></i>
+        <% end %>
+      <% else %>
+        <div class="d-flex justify-content-around">
+          <%= link_to motors_path do %>
+            <i class="bi bi-arrow-return-left text-secondary fs-5 px-1"></i>
+          <% end %>
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <%= link_to edit_motor_path(motor) do %>
+                <i class="bi bi-pencil-fill text-success fs-5 px-1"></i>
+              <% end %>
+              <%= button_to @motor, method: :delete, style: "all: unset; cursor: pointer" do %>
+                <i class="bi bi-trash-fill text-danger fs-5 px-1"></i>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

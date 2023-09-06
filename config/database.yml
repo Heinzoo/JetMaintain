@@ -17,6 +17,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  username: <%= ENV["DB_USER"].presence || 'postgres' %>
+  password: <%= ENV["DB_PASSWORD"].presence || 'zarey' %>
+  host: <%= ENV["DB_HOST"].presence || 'localhost' %>
+  port: <%= ENV["DB_PORT"].presence || 5432 %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -81,6 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: JetMaintain_production
-  username: JetMaintain
-  password: <%= ENV["JETMAINTAIN_DATABASE_PASSWORD"] %>
+  database: <%= ENV["DB_NAME"].presence || 'JetMaintain_production' %>
