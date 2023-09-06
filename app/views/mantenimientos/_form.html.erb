@@ -11,52 +11,45 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :type_motor, style: "display: block" %>
-    <%= form.number_field :type_motor %>
+  <% if action_name == "edit" %>
+    <% if (mantenimiento.motor.photo != '') || mantenimiento.motor.photo.nil? %>
+      <%= image_tag mantenimiento.motor.photo, class: 'rounded mx-auto d-block w-25' %>
+    <% else %>
+      <%= image_tag 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB4tz_gilgETvc2A7tVnVD_Z72z1_DrqwY00IFji_Q55BG4cTjq0zlIXanmPREaaU0GcY&usqp=CAU', class: 'rounded mx-auto d-block w-25' %>
+    <% end %>
+  <% end %>
+
+  <div class="input-group py-2">
+    <%= form.label :motor_name, "Nombre del Motor", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%= form.select :motor_name, options_for_select(@motors.map { |motor| motor.name }, @mantenimiento.motor_name), {}, class: "form-select" %>
+    <%# form.select :motor_name, options_from_collection_for_select(@motors, :id, :name, @mantenimiento.motor_id), {}, class: "form-select" %>
   </div>
 
-  <div>
-    <%= form.label :type_mantenimiento, style: "display: block" %>
-    <%= form.number_field :type_mantenimiento %>
+  <div class="input-group py-2">
+    <%= form.label :type_mantenimiento, "Tipo de mantenimiento", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%= form.select :type_mantenimiento, Mantenimiento.type_mantenimientos.keys, {}, class: "form-select" %>
   </div>
 
-  <div>
-    <%= form.label :motor_name, style: "display: block" %>
-    <%= form.text_field :motor_name %>
+  <div class="input-group py-2">
+    <%= form.label :material, "Material", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%= form.select :material, Mantenimiento.materials.keys, {}, class: "form-select" %>
   </div>
 
-  <div>
-    <%= form.label :city, style: "display: block" %>
-    <%= form.number_field :city %>
+  <div class="input-group py-2">
+    <%= form.label :city, "Ciudad", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%= form.select :city, Mantenimiento.cities.keys, {}, class: "form-select" %>
   </div>
 
-  <div>
-    <%= form.label :material, style: "display: block" %>
-    <%= form.number_field :material %>
+  <div class="input-group py-2">
+    <%= form.label :date_mantenimiento, "Fecha Mantenimiento", class: "input-group-text", style: "background-color: #e3f2fd;" %>
+    <%= form.date_field :date_mantenimiento, placeholder: "Fecha Mantenimiento", class: "form-control" %>
   </div>
-
-  <div>
-    <%= form.label :date_mantenimiento, style: "display: block" %>
-    <%= form.datetime_field :date_mantenimiento %>
-  </div>
-
-  <div>
-    <%= form.label :user_email, style: "display: block" %>
-    <%= form.text_field :user_email %>
-  </div>
-
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.label :motor_id, style: "display: block" %>
-    <%= form.text_field :motor_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  
+  <div class="py-2">
+    <% if action_name == "new" %>
+      <%= form.submit "Guardar", class: "btn btn-success rounded-pill fw-semibold text-white" %>
+    <% else %>
+      <%= form.submit "Actualizar", class: "btn btn-success rounded-pill fw-semibold text-white" %>
+    <% end %>
   </div>
 <% end %>

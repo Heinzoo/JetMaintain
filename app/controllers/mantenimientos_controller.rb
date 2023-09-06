@@ -1,9 +1,13 @@
 class MantenimientosController < ApplicationController
   before_action :set_mantenimiento, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action only: [:destroy] do
+    authorize_request(["admin"])
+  end
 
   # GET /mantenimientos or /mantenimientos.json
   def index
-    @mantenimientos = Mantenimiento.all
+    @mantenimientos = Mantenimiento.paginate(:page => params[:page], :per_page => 9)
   end
 
   # GET /mantenimientos/1 or /mantenimientos/1.json
@@ -12,16 +16,27 @@ class MantenimientosController < ApplicationController
 
   # GET /mantenimientos/new
   def new
+    @motors = Motor.all
     @mantenimiento = Mantenimiento.new
   end
 
   # GET /mantenimientos/1/edit
   def edit
+    @motors = Motor.all
   end
 
   # POST /mantenimientos or /mantenimientos.json
   def create
+    @motors = Motor.all
+    motor_name = params[:mantenimiento][:motor_name]
+    motor = Motor.find_by(name: motor_name)
+
     @mantenimiento = Mantenimiento.new(mantenimiento_params)
+    @mantenimiento.motor = motor
+    @mantenimiento.type_motor = motor.type_motor
+    @mantenimiento.user = current_user
+    @mantenimiento.user_email = current_user.email
+    @mantenimiento.date_mantenimiento = Date.today
 
     respond_to do |format|
       if @mantenimiento.save
@@ -36,6 +51,13 @@ class MantenimientosController < ApplicationController
 
   # PATCH/PUT /mantenimientos/1 or /mantenimientos/1.json
   def update
+    @motors = Motor.all
+    motor_name = params[:mantenimiento][:motor_name]
+    motor = Motor.find_by(name: motor_name)
+
+    @mantenimiento.motor = motor
+    @mantenimiento.type_motor = motor.type_motor
+
     respond_to do |format|
       if @mantenimiento.update(mantenimiento_params)
         format.html { redirect_to mantenimiento_url(@mantenimiento), notice: "Mantenimiento was successfully updated." }

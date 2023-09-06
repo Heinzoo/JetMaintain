@@ -26,7 +26,6 @@
 
   <div class="input-group py-2">
     <%= form.label :type_motor, "Tipo de Motor", class: "input-group-text", style: "background-color: #e3f2fd;" %>
-    <%# form.text_field :type_motor, placeholder: "Tipo de Motor", class: "form-control" %>
     <%= form.select :type_motor, Motor.type_motors.keys, {}, class: "form-select" %>
   </div>
 
@@ -48,4 +47,3 @@
     <% end %>
   </div>
 <% end %>
-

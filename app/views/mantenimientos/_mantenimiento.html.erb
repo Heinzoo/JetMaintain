@@ -1,47 +1,59 @@
-<div id="<%= dom_id mantenimiento %>">
-  <p>
-    <strong>Type motor:</strong>
-    <%= mantenimiento.type_motor %>
-  </p>
-
-  <p>
-    <strong>Type mantenimiento:</strong>
-    <%= mantenimiento.type_mantenimiento %>
-  </p>
-
-  <p>
-    <strong>Motor name:</strong>
-    <%= mantenimiento.motor_name %>
-  </p>
-
-  <p>
-    <strong>City:</strong>
-    <%= mantenimiento.city %>
-  </p>
-
-  <p>
-    <strong>Material:</strong>
-    <%= mantenimiento.material %>
-  </p>
-
-  <p>
-    <strong>Date mantenimiento:</strong>
-    <%= mantenimiento.date_mantenimiento %>
-  </p>
-
-  <p>
-    <strong>User email:</strong>
-    <%= mantenimiento.user_email %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= mantenimiento.user_id %>
-  </p>
-
-  <p>
-    <strong>Motor:</strong>
-    <%= mantenimiento.motor_id %>
-  </p>
-
+<div id="<%= dom_id mantenimiento %>" class="col-4 py-2">
+  <div class="card text-center border-success">
+    <% if (mantenimiento.motor.photo != '') || mantenimiento.motor.photo.nil? %>
+      <%= image_tag mantenimiento.motor.photo, class: 'card-img-top' %>
+    <% else %>
+      <%= image_tag 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB4tz_gilgETvc2A7tVnVD_Z72z1_DrqwY00IFji_Q55BG4cTjq0zlIXanmPREaaU0GcY&usqp=CAU', class: 'card-img-top' %>
+    <% end %>
+    <div class="card-header">
+      <h5 class="card-title fw-bold">
+        <%= mantenimiento.motor.type_motor %>
+      </h5>
+      <p class="card-subtitle">
+        Mantenimiento <%= mantenimiento.type_mantenimiento %>
+      </p>
+    </div>
+    <div class="card-body">
+      <p class="card-text fst-italic m-0">
+        Modelo: <%= mantenimiento.motor.name %>
+      </p>
+      <% if action_name == 'show' %>
+        <p class="card-text fst-italic m-0">
+          Material: <%= mantenimiento.material %>
+        </p>
+        <p class="card-text fst-italic m-0">
+          <%= mantenimiento.city %>
+        </p>
+        <p class="card-text fst-italic m-0">
+          <%= mantenimiento.date_mantenimiento.strftime("%d/%m/%Y") %>
+        </p>
+        <p class="card-text fst-italic m-0">
+          <%= mantenimiento.user_email %>
+        </p>
+      <% end %>
+    </div>
+    <div class="card-footer">
+      <% if action_name == 'index' %>
+        <%= link_to mantenimiento do %>
+          <i class="bi bi-eye-fill text-primary fs-5"></i>
+        <% end %>
+      <% else %>
+        <div class="d-flex justify-content-around">
+          <%= link_to mantenimientos_path do %>
+            <i class="bi bi-arrow-return-left text-secondary fs-5 px-1"></i>
+          <% end %>
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <%= link_to edit_mantenimiento_path(mantenimiento) do %>
+                <i class="bi bi-pencil-fill text-success fs-5 px-1"></i>
+              <% end %>
+              <%= button_to @mantenimiento, method: :delete, style: "all: unset; cursor: pointer" do %>
+                <i class="bi bi-trash-fill text-danger fs-5 px-1"></i>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

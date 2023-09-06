@@ -29,3 +29,20 @@ User.create(
     photo: link
   )
 end
+
+100.times do
+  user = User.all.sample
+  motor = Motor.all.sample
+
+  Mantenimiento.create(
+    type_motor: motor.type_motor,
+    type_mantenimiento: [0, 1].sample,
+    motor_name: motor.name,
+    city: ['Santiago de Chile', 'Temuco', 'Antofagasta'].sample,
+    material: ['Turbinas', 'Sistemas de ignición', 'Sistemas de combustible'].sample,
+    date_mantenimiento: Faker::Date.between(from: '2020-01-01', to: '2023-12-31'),
+    user_email: user.email,
+    user_id: user.id,
+    motor_id: motor.id,
+  )
+end

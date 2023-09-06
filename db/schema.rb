@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_235140) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_031124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "mantenimientos", force: :cascade do |t|
+    t.integer "type_motor"
+    t.integer "type_mantenimiento"
+    t.string "motor_name"
+    t.integer "city"
+    t.integer "material"
+    t.datetime "date_mantenimiento"
+    t.string "user_email"
+    t.bigint "user_id", null: false
+    t.bigint "motor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["motor_id"], name: "index_mantenimientos_on_motor_id"
+    t.index ["user_id"], name: "index_mantenimientos_on_user_id"
+  end
 
   create_table "motors", force: :cascade do |t|
     t.integer "type_motor"
@@ -36,4 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_235140) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "mantenimientos", "motors"
+  add_foreign_key "mantenimientos", "users"
 end

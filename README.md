@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+JetMaintain es una empresa que busca desarrollar una plataforma para gestionar el mantenimiento de motores de avión, reemplazando el registro en papel. El objetivo es mejorar la organización, control y seguimiento de los mantenimientos preventivos y correctivos. 
 
-Things you may want to cover:
+La plataforma centralizará la información, permitiendo programar y planificar los mantenimientos, controlar los insumos utilizados, registrar actividades detalladas y facilitar la comunicación con los clientes. El proyecto busca optimizar la eficiencia, reducir errores y pérdida de tiempo, y mejorar la calidad del servicio.
 
-* Ruby version
+A continuación se detalla la lista principal de los comandos utilizados para implementar el proyecto en un entorno de desarrollo utilizando Ruby on Rails:
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* rails new JetMaintain -d=postgresql
+* rails g scaffold Model campos:tipo de dato
+* Configura la base de datos ('user: postgres/ pass: postgres').
+* rails db:migrate db:seed
+* Definir las rutas en config/routes.rb.
+* Define las acciones y lógica en los controladores generados.
+* Desarrolla las vistas utilizando HTML y Ruby en la carpeta app/views.
+* rails s: Inicia el servidor de desarrollo.
+* Acceder a la aplicación en tu navegador web.

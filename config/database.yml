@@ -18,7 +18,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   username: <%= ENV["DB_USER"].presence || 'postgres' %>
-  password: <%= ENV["DB_PASSWORD"].presence || 'zarey' %>
+  password: <%= ENV["DB_PASSWORD"].presence || 'postgres' %>
   host: <%= ENV["DB_HOST"].presence || 'localhost' %>
   port: <%= ENV["DB_PORT"].presence || 5432 %>
   # For details on connection pooling, see Rails configuration guide
